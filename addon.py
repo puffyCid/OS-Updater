@@ -21,6 +21,10 @@ def UniversalUpdater(password, updateCommandY):
         output.wait()
         updateProgress.close()
         xbmcgui.Dialog().ok(addonName, addon.getLocalizedString(32005))
+        if(addon.getSetting("Debian")=="true"):
+             answer = xbmcgui.Dialog().yesno(addonName, addon.getLocalizedString(32008))
+             if(answer=="true"):
+                 output = subprocess.Popen(["echo " + password + " | sudo -S apt-get autoremove"], shell=True)
 '''
 Method/Function to fetch updates.  Executes update commands based on addon setting. Ex: apt-get.
 Checks if user entered password correctly based on update output response.
@@ -81,7 +85,7 @@ class UpdateWindow(xbmcgui.Window):
     xbmc.executebuiltin("ActivateWindow(%d)" % 10147)
     window = xbmcgui.Window(10147)
     time.sleep(5)
-    window.getControl(1).setLabel(addon.getLocalizedString(32005))
+    window.getControl(1).setLabel(addon.getLocalizedString(32009))
     window.getControl(5).setText(output)
     
     answer = xbmcgui.Dialog().yesno(addonName, addon.getLocalizedString(32004))

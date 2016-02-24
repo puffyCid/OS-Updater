@@ -1,2 +1,6 @@
+Version 1.0.1
+Added Autoremove capability for Debian based systems
+Fixed a few issues
+
 Version 1.0.0
 Initial Release

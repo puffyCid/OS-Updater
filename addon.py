@@ -9,11 +9,12 @@ ACTION_PREVIOUS_MENU = 10
 
 '''
 Method/Function to upgrade the operating system.  Executes upgrade commands based on addon setting. Ex: apt-get
+For Debian based systems it also installs packages that have been held back and autoremoves unneeded packages
 '''
 def UniversalUpdater(password, updateCommandY):
         addon = xbmcaddon.Addon()
         addonName = addon.getAddonInfo('name')
-        output = subprocess.Popen(["echo " + password + " | sudo -S " + updateCommandY], shell=True)
+        output = subprocess.Popen(["echo " + password + " | sudo -S " + updateCommandY], stdout=subprocess.PIPE, shell=True)
         updateProgress = xbmcgui.DialogProgress()
         updateProgress.create("Kodi", addon.getLocalizedString(32006))
         if(updateProgress.iscanceled()):
@@ -22,9 +23,33 @@ def UniversalUpdater(password, updateCommandY):
         updateProgress.close()
         xbmcgui.Dialog().ok(addonName, addon.getLocalizedString(32005))
         if(addon.getSetting("Debian")=="true"):
-             answer = xbmcgui.Dialog().yesno(addonName, addon.getLocalizedString(32008))
-             if(answer=="true"):
-                 output = subprocess.Popen(["echo " + password + " | sudo -S apt-get autoremove"], shell=True)
+            
+            output=output.communicate()[0]
+            if(addon.getLocalizedString(32010) in output):
+                output=output.split(addon.getLocalizedString(32010))[1]
+
+                if(addon.getLocalizedString(32016) in output):
+                    output=output.split(addon.getLocalizedString(32016))[0]
+                    answer=xbmcgui.Dialog().yesno(addonName,addon.getLocalizedString(32015))
+                    
+                    if(answer==True):
+                        updateProgress = xbmcgui.DialogProgress()
+                        updateProgress.create("Kodi", addon.getLocalizedString(32006))
+                        subprocess.Popen(["echo " + password + " | sudo -S apt-get -f install " + output], stdout=subprocess.PIPE, shell=True).wait()
+                        updateProgress.close()
+                        
+                if(addon.getLocalizedString(32017) in output):
+                    output=output.split(addon.getLocalizedString(32017))[0]
+                    answer=xbmcgui.Dialog().yesno(addonName,addon.getLocalizedString(32015))
+                    if(answer==True):
+                        subprocess.Popen(["echo " + password + " | sudo -S apt-get -f install " + output], stdout=subprocess.PIPE, shell=True)
+                        updateProgress = xbmcgui.DialogProgress()
+                        updateProgress.create("Kodi", addon.getLocalizedString(32006))
+                        output.wait()
+                
+            answer = xbmcgui.Dialog().yesno(addonName, addon.getLocalizedString(32008))
+            if(answer == True):
+                 subprocess.Popen(["echo " + password + " | sudo -S apt-get -y autoremove"], stdout=subprocess.PIPE, shell=True).wait()
 '''
 Method/Function to fetch updates.  Executes update commands based on addon setting. Ex: apt-get.
 Checks if user entered password correctly based on update output response.
@@ -36,6 +61,7 @@ def FetchUpdates(password, updateCommand):
         addon = xbmcaddon.Addon()
         addonName = addon.getAddonInfo('name')
         output = subprocess.Popen(["echo " + password + " | sudo -S " + updateCommand], stdout=subprocess.PIPE, shell=True)
+        #output = subprocess.check_output(["echo " + password + " | sudo -S " + updateCommand], shell=True)
         fetchUpdates = xbmcgui.DialogProgress()
         fetchUpdates.create("Kodi", addon.getLocalizedString(32003))
         if(fetchUpdates.iscanceled()):
@@ -43,7 +69,7 @@ def FetchUpdates(password, updateCommand):
         output.wait()
         fetchUpdates.close()
         output = output.communicate()[0]
-        if(len(output) < 2):
+        if(addon.getLocalizedString(32018) in output):
             xbmcgui.Dialog().ok(addonName, addon.getLocalizedString(32002))
             sys.exit()
         return output
@@ -89,12 +115,7 @@ class UpdateWindow(xbmcgui.Window):
     window.getControl(5).setText(output)
     
     answer = xbmcgui.Dialog().yesno(addonName, addon.getLocalizedString(32004))
-    if(answer == True):
-        # inputText = xbmc.Keyboard('', 'Enter password', True)
-        # inputText.doModal()
-        # if(inputText.isConfirmed()):
-            # text = "\'" + inputText.getText() + "\'"  
-                  
+    if(answer == True):                  
         if(addon.getSetting('RedHat') == 'true'):       
             updateFedoraY = "dnf -y update"
             

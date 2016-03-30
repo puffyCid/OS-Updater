@@ -1,3 +1,8 @@
+Version 1.1
+Beta Implementation for upgrading packages that might have been held back (Debian based Systems)
+Improved Autoremove functionality
+Fixed AUR updater (...hopefully)
+
 Version 1.0.1
 Added Autoremove capability for Debian based systems
 Fixed a few issues

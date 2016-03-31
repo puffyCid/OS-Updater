@@ -132,7 +132,7 @@ class UpdateWindow(xbmcgui.Window):
             UniversalUpdater(text, updateArchY)
             
         if(addon.getSetting('ArchAur') == 'true'):    
-            updateArchAurY = "yaourt -Syu --noconfirm"
+            updateArchAurY = "yaourt -Syua --noconfirm"
             
             UniversalUpdater(text, updateArchAurY)
     

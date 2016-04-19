@@ -1,20 +1,24 @@
 <strings>
-    <string id="32001">Settings</string>
-    <string id="32002">Error. You most likely entered the wrong password OR didn't set the correct option in the Addon Settings.</string>
-    <string id="32003">Fetching updates, please wait :)</string>
-    <string id="32004">Do you really want to update?  Reviewing the updates is recommended.</string>
-    <string id="32005">Finished.  You may need to restart in order for updates to take effect.</string>
-    <string id="32006">Updating System.  Please wait...</string>
-    <string id="32007">Enter password</string>
-    <string id="32008">Do you want to remove all unneeded packages?</string>
-    <string id="32009">Updates</string>
-    <string id="32010">The following packages have been kept back:</string>
-    <string id="32011">APT Based Systems</string>
-    <string id="32012">DNF Based Systems</string>
-    <string id="32013">PACMAN Based Systems</string>
-    <string id="32014">YAOURT Based Systems</string>
-    <string id="32015">Some packages have not been held back.  Would you like to install them?</string>
-    <string id="32016">0 upgraded</string>
-    <string id="32017">The following packages will be upgraded:</string>
-    <string id="32018">Sorry, try again</string>
+	<string id="32001">Settings</string>
+	<string id="32002">Error. You most likely entered the wrong password OR
+		didn't set the correct option in the Addon Settings.</string>
+	<string id="32003">Fetching updates, please wait :)</string>
+	<string id="32004">Do you really want to update? Reviewing the updates
+		is recommended.</string>
+	<string id="32005">Finished. You may need to restart in order for
+		updates to take effect.</string>
+	<string id="32006">Updating System. Please wait...</string>
+	<string id="32007">Enter password</string>
+	<string id="32008">Do you want to remove all unneeded packages?</string>
+	<string id="32009">Updates</string>
+	<string id="32010">The following packages have been kept back:</string>
+	<string id="32011">APT Based Systems</string>
+	<string id="32012">DNF Based Systems</string>
+	<string id="32013">PACMAN Based Systems</string>
+	<string id="32014">YAOURT Based Systems</string>
+	<string id="32015">Some packages have been held back. Would you like to
+		install them?</string>
+	<string id="32016">0 upgraded</string>
+	<string id="32017">The following packages will be upgraded:</string>
+	<string id="32018">Sorry, try again</string>
 </strings>

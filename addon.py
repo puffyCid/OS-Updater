@@ -42,7 +42,7 @@ def UniversalUpdater(password, updateCommandY):
                     output=output.split(addon.getLocalizedString(32017))[0]
                     answer=xbmcgui.Dialog().yesno(addonName,addon.getLocalizedString(32015))
                     if(answer==True):
-                        subprocess.Popen(["echo " + password + " | sudo -S apt-get -f install " + output], stdout=subprocess.PIPE, shell=True)
+                        subprocess.Popen(["echo " + password + " | sudo -S apt-get -y dist-upgrade"], stdout=subprocess.PIPE, shell=True)
                         updateProgress = xbmcgui.DialogProgress()
                         updateProgress.create("Kodi", addon.getLocalizedString(32006))
                         output.wait()

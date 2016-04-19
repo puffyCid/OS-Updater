@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<settings>
+    <category label="32001">
+        <setting label="32011" type="bool" id="Debian" default="true"/>
+        <setting label="32012" type="bool" id="RedHat" default="false"/>
+        <setting label="32013" type="bool" id="Arch" default="false"/>
+        <setting label="32014" type="bool" id="ArchAur" default="false"/>
+    </category>
+</settings>
